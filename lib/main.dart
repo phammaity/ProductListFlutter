@@ -1,3 +1,4 @@
+import 'package:api_repository/api_repository.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -8,6 +9,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final testVal = Calculator();
+    print(testVal.addOne(10));
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -22,7 +25,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Flutter Demo Ty Pham'),
     );
   }
 }
@@ -47,6 +50,19 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    testFunction();
+  }
+
+  void testFunction() async {
+    final result = await ApiProvider.instance().fetchAllItems();
+    print("tyytytytyyt start");
+    print(result.items.length);
+    print("tyytytytyyt end");
+  }
 
   void _incrementCounter() {
     setState(() {
