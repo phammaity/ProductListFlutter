@@ -3,6 +3,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:products_flutter/home/blocs/fetch_products/product_bloc.dart';
 import 'package:products_flutter/home/views/item_row_view.dart';
 
+class ProductScreen extends StatelessWidget {
+  static Route route() {
+    return MaterialPageRoute<void>(builder: (_) => ProductScreen());
+  }
+
+  const ProductScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Products"),
+      ),
+      body: BlocProvider(
+        create: (_) => ProductBloc()..add(FetchProducts()),
+        child: ProductList(),
+      ),
+    );
+  }
+}
+
 class ProductList extends StatefulWidget {
   const ProductList({Key? key}) : super(key: key);
 
@@ -67,26 +88,5 @@ class _ProductListState extends State<ProductList> {
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.offset;
     return currentScroll >= (maxScroll * 0.9);
-  }
-}
-
-class ProductScreen extends StatelessWidget {
-  static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => ProductScreen());
-  }
-
-  const ProductScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Products"),
-      ),
-      body: BlocProvider(
-        create: (_) => ProductBloc()..add(FetchProducts()),
-        child: ProductList(),
-      ),
-    );
   }
 }
