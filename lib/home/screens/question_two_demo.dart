@@ -42,11 +42,19 @@ class QuestionTwoDemo extends StatelessWidget {
                       .printAllCases(buyers: buyers);
                 },
                 child: Text("Print")),
+            BlocBuilder<CombineBuyersCubit, List<String>>(
+              builder: (context, state) => Text(
+                "Count = " + state.length.toString(),
+              ),
+            ),
             Expanded(
               child: BlocBuilder<CombineBuyersCubit, List<String>>(
                 builder: (context, state) => ListView.builder(
-                  itemBuilder: (BuildContext context, int index) =>
-                      Container(child: Center(child: Text(state[index]))),
+                  itemBuilder: (BuildContext context, int index) => Container(
+                    child: Center(
+                      child: Text(state[index]),
+                    ),
+                  ),
                   itemCount: state.length,
                 ),
               ),
