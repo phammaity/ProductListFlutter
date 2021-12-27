@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:products_flutter/home/blocs/combine_buyers/combine_buyers_cubit.dart';
+import '../blocs/blocs.dart';
 
 class QuestionTwoDemo extends StatelessWidget {
   static Route route() {

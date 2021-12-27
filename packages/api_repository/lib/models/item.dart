@@ -78,7 +78,8 @@ class Item extends Equatable {
 
 class AllItems extends Equatable {
   final List<Item> items;
-  AllItems(this.items);
+  final Pagination pagination;
+  AllItems(this.items, this.pagination);
 
   factory AllItems.fromJson(Map<String, dynamic> json) {
     final _list = <Item>[];
@@ -87,9 +88,40 @@ class AllItems extends Equatable {
         _list.add(Item.fromJson(element));
       });
     }
-    return AllItems(_list);
+
+    final _paging = Pagination.fromJson(json["pagination"]);
+    return AllItems(
+      _list,
+      _paging,
+    );
   }
 
   @override
   List<Object?> get props => [items];
+}
+
+class Pagination extends Equatable {
+  final int page;
+  final int pageSize;
+  final int totalCount;
+
+  Pagination({
+    required this.page,
+    required this.pageSize,
+    required this.totalCount,
+  });
+
+  factory Pagination.fromJson(Map<String, dynamic> json) {
+    final _page = json["page"] ?? 0;
+    final _pageSize = json["pageSize"] ?? 0;
+    final _totalCount = json["totalCount"] ?? 0;
+    return Pagination(
+      page: _page,
+      pageSize: _pageSize,
+      totalCount: _totalCount,
+    );
+  }
+
+  @override
+  List<Object?> get props => [page, pageSize, totalCount];
 }

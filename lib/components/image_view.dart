@@ -12,7 +12,7 @@ class ImageUrlView extends StatelessWidget {
       placeholder: (context, url) =>
           Image.asset("assets/images/default-image.png"),
       errorWidget: (context, url, error) => Icon(Icons.error),
-      fit: BoxFit.fitWidth,
+      fit: BoxFit.fill,
     );
   }
 }

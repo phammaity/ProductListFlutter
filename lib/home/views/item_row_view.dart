@@ -1,8 +1,8 @@
-import 'package:api_repository/models/item.dart';
+import 'package:api_repository/api_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:products_flutter/components/image_view.dart';
+import '../../components/components.dart';
 
-class ItemRowView extends StatelessWidget {
+class ItemRowView extends StatelessWidget implements ListItem {
   final String name;
   final String description;
   final String? imageUrlString;
@@ -27,22 +27,35 @@ class ItemRowView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(8),
-      child: Column(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Visibility(
             visible: imageUrlString != null,
-            child: ImageUrlView(
-              url: imageUrlString ?? "",
+            child: Container(
+              width: 100,
+              height: 100,
+              child: ImageUrlView(
+                url: imageUrlString ?? "",
+              ),
             ),
           ),
-          Text(
-            name,
-            style: Theme.of(context).textTheme.headline5,
-          ),
-          Text(
-            description,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
+          SizedBox(width: 20),
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+                Text(
+                  description,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
           ),
         ],
       ),

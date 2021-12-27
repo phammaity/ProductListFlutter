@@ -7,52 +7,37 @@ part 'product_state.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ProductBloc() : super(const ProductState()) {
-    on<FetchProducts>(_onLocalProductFetched);
+    on<FetchProducts>(_onProductFetched);
   }
 
-  Future<List<Item>> _fetchProducts() async {
+  Future<AllItems> _fetchProducts({required int index}) async {
     final result = await ApiProvider.instance().fetchLocalItems();
-    return result.items;
+    return result;
   }
 
-  Future<void> _onLocalProductFetched(
+  Future<void> _onProductFetched(
       FetchProducts event, Emitter<ProductState> emit) async {
     if (state.hasReachedMax) return;
     try {
-      if (state.status == ProductStatus.initial) {
-        final products = await _fetchProducts();
-        return emit(state.copyWith(
-          status: ProductStatus.success,
-          products: products,
-          hasReachedMax: false,
-        ));
-      }
+      final response = await _fetchProducts(index: state.products.length);
+      final filteredList = response.items
+          .where((item) => !item.isDeleted && item.status == "active")
+          .toList();
+      filteredList.sort((item0, item1) => item0.rank.compareTo(item1.rank));
+      final topItems = filteredList.take(10).toList();
+      final justDroppedItems =
+          filteredList.where((item) => item.justDropped).toList();
+
+      return emit(state.copyWith(
+        status: ProductStatus.success,
+        products: response.items,
+        topProducts: topItems,
+        justDroppedProducts: justDroppedItems,
+        hasReachedMax:
+            response.pagination.totalCount <= response.pagination.pageSize,
+      ));
     } catch (_) {
       emit(state.copyWith(status: ProductStatus.failure));
     }
   }
-
-  // Future<void> _onPostFetched(PostFetched event, Emitter<PostState> emit) async {
-  //   if (state.hasReachedMax) return;
-  //   try {
-  //     if (state.status == PostStatus.initial) {
-  //       final posts = await _fetchPosts();
-  //       return emit(state.copyWith(
-  //         status: PostStatus.success,
-  //         posts: posts,
-  //         hasReachedMax: false,
-  //       ));
-  //     }
-  //     final posts = await _fetchPosts(state.posts.length);
-  //     emit(posts.isEmpty
-  //         ? state.copyWith(hasReachedMax: true)
-  //         : state.copyWith(
-  //       status: PostStatus.success,
-  //       posts: List.of(state.posts)..addAll(posts),
-  //       hasReachedMax: false,
-  //     ));
-  //   } catch (_) {
-  //     emit(state.copyWith(status: PostStatus.failure));
-  //   }
-  // }
 }

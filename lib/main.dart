@@ -1,6 +1,5 @@
-import 'package:api_repository/api_repository.dart';
 import 'package:flutter/material.dart';
-import 'home/screens/home_screen.dart';
+import 'home/screens/screens.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,12 +11,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final testVal = Calculator();
-    print(testVal.addOne(10));
     return MaterialApp(
         title: 'Flutter test assignment',
         navigatorKey: _navigatorKey,
-        onGenerateRoute: (_) => HomeScreen.route(),
+        onGenerateRoute: (_) => DemoScreen.route(),
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),

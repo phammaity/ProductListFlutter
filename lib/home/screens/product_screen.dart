@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:products_flutter/home/blocs/fetch_products/product_bloc.dart';
-import 'package:products_flutter/home/views/item_row_view.dart';
+import '../blocs/blocs.dart';
+import '../views/views.dart';
 
 class ProductScreen extends StatelessWidget {
-  static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => ProductScreen());
+  static Route route(ProductBloc bloc) {
+    return MaterialPageRoute<void>(
+        builder: (_) => BlocProvider<ProductBloc>.value(
+              value: bloc,
+              child: ProductScreen(),
+            ));
   }
 
   const ProductScreen({Key? key}) : super(key: key);
@@ -16,10 +20,7 @@ class ProductScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Products"),
       ),
-      body: BlocProvider(
-        create: (_) => ProductBloc()..add(FetchProducts()),
-        child: ProductList(),
-      ),
+      body: ProductList(),
     );
   }
 }
@@ -46,14 +47,12 @@ class _ProductListState extends State<ProductList> {
       builder: (context, state) {
         switch (state.status) {
           case ProductStatus.failure:
-            return const Center(child: Text('failed to fetch posts'));
+            return const Center(child: Text('something wrong'));
           case ProductStatus.success:
             if (state.products.isEmpty) {
-              return const Center(child: Text('no posts'));
+              return const Center(child: Text('no items'));
             }
-            return ListView.separated(
-              separatorBuilder: (BuildContext context, int index) =>
-                  const Divider(),
+            return ListView.builder(
               itemBuilder: (BuildContext context, int index) {
                 return index >= state.products.length
                     ? Text("Loading...")
