@@ -37,9 +37,13 @@ class SectionItem extends StatelessWidget implements ListItem {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      sectionName,
-      style: Theme.of(context).textTheme.headline5,
+    return Container(
+      padding: EdgeInsets.all(8),
+      color: Colors.yellow,
+      child: Text(
+        sectionName,
+        style: Theme.of(context).textTheme.headline5,
+      ),
     );
   }
 }

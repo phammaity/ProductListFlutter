@@ -29,7 +29,7 @@ class QuestionTwoDemo extends StatelessWidget {
             TextField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: 'Enter a search term',
+                hintText: 'Enter number of buyers',
               ),
               keyboardType: TextInputType.number,
               controller: _textFieldController,

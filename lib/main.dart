@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter test assignment',
         navigatorKey: _navigatorKey,
+        debugShowCheckedModeBanner: false,
         onGenerateRoute: (_) => DemoScreen.route(),
         theme: ThemeData(
           primarySwatch: Colors.blue,
