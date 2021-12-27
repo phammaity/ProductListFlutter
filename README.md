@@ -1,12 +1,15 @@
 # ProductListFlutter
 - a Flutter app that shows a list of products
 
-## Environment
+## Required environment
 - dart: ">=2.12.0 <3.0.0"
 - flutter: ">=1.17.0"
+  https://docs.flutter.dev/get-started/install
   
 ## Installation
-  run 'flutter pub get'
+  ```bash
+  flutter pub get
+  ```
   
 ## About the assignment
 ### Question 1
@@ -16,6 +19,7 @@
   <img src="https://github.com/phammaity/ProductListFlutter/blob/main/trending-products.png" width="400" height="auto">
   <img src="https://github.com/phammaity/ProductListFlutter/blob/main/justdropped-products.png" width="400" height="auto">
 </p>
+
 - See all products(filter out deleted and inactive products)
 <p>
   <img src="https://github.com/phammaity/ProductListFlutter/blob/main/see-all.png" width="400" height="auto">
